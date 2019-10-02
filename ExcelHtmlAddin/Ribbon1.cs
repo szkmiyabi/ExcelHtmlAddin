@@ -12,5 +12,10 @@ namespace ExcelHtmlAddin
         {
 
         }
+
+        private void doCreateTableTagButton_Click(object sender, RibbonControlEventArgs e)
+        {
+            create_table_tag();
+        }
     }
 }

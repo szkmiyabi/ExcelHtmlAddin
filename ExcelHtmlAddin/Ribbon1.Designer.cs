@@ -36,7 +36,6 @@
         {
             this.tab1 = this.Factory.CreateRibbonTab();
             this.group1 = this.Factory.CreateRibbonGroup();
-            this.doCreateTableButton = this.Factory.CreateRibbonButton();
             this.doCreateTableTagButton = this.Factory.CreateRibbonButton();
             this.tab1.SuspendLayout();
             this.group1.SuspendLayout();
@@ -50,20 +49,15 @@
             // 
             // group1
             // 
-            this.group1.Items.Add(this.doCreateTableButton);
             this.group1.Items.Add(this.doCreateTableTagButton);
-            this.group1.Label = "表";
+            this.group1.Label = "表編集";
             this.group1.Name = "group1";
-            // 
-            // doCreateTableButton
-            // 
-            this.doCreateTableButton.Label = "ひな形作成";
-            this.doCreateTableButton.Name = "doCreateTableButton";
             // 
             // doCreateTableTagButton
             // 
             this.doCreateTableTagButton.Label = "表コード出力";
             this.doCreateTableTagButton.Name = "doCreateTableTagButton";
+            this.doCreateTableTagButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.doCreateTableTagButton_Click);
             // 
             // Ribbon1
             // 
@@ -83,7 +77,6 @@
 
         internal Microsoft.Office.Tools.Ribbon.RibbonTab tab1;
         internal Microsoft.Office.Tools.Ribbon.RibbonGroup group1;
-        internal Microsoft.Office.Tools.Ribbon.RibbonButton doCreateTableButton;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton doCreateTableTagButton;
     }
 
