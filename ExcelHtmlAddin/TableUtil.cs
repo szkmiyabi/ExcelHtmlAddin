@@ -18,8 +18,30 @@ namespace ExcelHtmlAddin
         private string prefix = "<!-- ExcelHtmlAddin code start -->";
         private string sufix = "<!-- ExcelHtmlAddin code end -->";
 
+
+        //表コードを表示
+        private void do_table_tag_create_view()
+        {
+            string html = get_create_table_tag();
+            if (PrevFormObj.Visible == false) PrevFormObj.Show();
+            PrevFormObj.reportText.Text = html;
+            //PrevFormObj.WindowState = FormWindowState.Normal;
+            //PrevFormObj.Activate();
+        }
+
+        //表コードを保存
+        private void do_table_tag_create_save()
+        {
+            string html = get_create_table_tag();
+            string save_path = get_txt_save_path();
+            System.Text.Encoding enc = new System.Text.UTF8Encoding(false);
+            StreamWriter sw = new StreamWriter(save_path, false, enc);
+            sw.Write(html);
+            sw.Close();
+        }
+
         //Excelの表組みからtable要素のhtmlソースを生成
-        private void create_table_tag()
+        private string get_create_table_tag()
         {
             Excel.Range sa = Globals.ThisAddIn.Application.Selection;
             Excel.Worksheet ash = Globals.ThisAddIn.Application.ActiveSheet;
@@ -52,13 +74,13 @@ namespace ExcelHtmlAddin
 
 
             string html = "";
-            html += @"<table class=""table-bordered"">" + "\n";
+            html += @"<table class=""table-bordered"">" + "\r\n";
 
 
             //行ループ
             for (int i = r1; i <= r2; i++)
             {
-                html += "<tr>\n";
+                html += "<tr>\r\n";
 
 
                 //列ループ
@@ -109,7 +131,7 @@ namespace ExcelHtmlAddin
                                     int merge_cnt = get_merge_count_row(merge_addr);
                                     html += @"<td rowspan=""" + merge_cnt + @"""";
                                     if (align_flg) html += @" style=""text-align: center;""";
-                                    html += ">" + cell_val + "</td>\n";
+                                    html += ">" + cell_val + "</td>\r\n";
                                 }
 
                             }
@@ -120,7 +142,7 @@ namespace ExcelHtmlAddin
                                     int merge_cnt = get_merge_count_col(merge_addr);
                                     html += @"<td colspan=""" + merge_cnt + @"""";
                                     if (align_flg) html += @" style=""text-align: center;""";
-                                    html += ">" + cell_val + "</td>\n";
+                                    html += ">" + cell_val + "</td>\r\n";
                                 }
                             }
                             else if (scope.Equals("cross"))
@@ -131,7 +153,7 @@ namespace ExcelHtmlAddin
                                     int merge_col_cnt = get_merge_count_col(merge_addr);
                                     html += @"<td rowspan=""" + merge_row_cnt + @""" colspan=""" + merge_col_cnt + @"""";
                                     if (align_flg) html += @" style=""text-align: center;""";
-                                    html += ">" + cell_val + "</td>\n";
+                                    html += ">" + cell_val + "</td>\r\n";
                                 }
                             }
                         }
@@ -144,7 +166,7 @@ namespace ExcelHtmlAddin
                             if(border_bottom_none_flg) html += @"border-bottom: none;";
                             if (align_flg == true || border_top_none_flg == true || border_bottom_none_flg == true) html += @"""";
 
-                            html += ">" + cell_val + "</td>\n";
+                            html += ">" + cell_val + "</td>\r\n";
                         }
 
                     }
@@ -163,7 +185,7 @@ namespace ExcelHtmlAddin
                                     int merge_cnt = get_merge_count_row(merge_addr);
                                     html += @"<th rowspan=""" + merge_cnt + @"""";
                                     if (align_flg) html += @" style=""text-align: center;""";
-                                    html += ">" + cell_val + "</th>\n";
+                                    html += ">" + cell_val + "</th>\r\n";
                                 }
 
                             }
@@ -174,7 +196,7 @@ namespace ExcelHtmlAddin
                                     int merge_cnt = get_merge_count_col(merge_addr);
                                     html += @"<th colspan=""" + merge_cnt + @"""";
                                     if (align_flg) html += @" style=""text-align: center;""";
-                                    html += ">" + cell_val + "</th>\n";
+                                    html += ">" + cell_val + "</th>\r\n";
                                 }
                             }
                             else if (scope.Equals("cross"))
@@ -185,7 +207,7 @@ namespace ExcelHtmlAddin
                                     int merge_col_cnt = get_merge_count_col(merge_addr);
                                     html += @"<th rowspan=""" + merge_row_cnt + @""" colspan=""" + merge_col_cnt + @"""";
                                     if (align_flg) html += @" style=""text-align: center;""";
-                                    html += ">" + cell_val + "</th>\n";
+                                    html += ">" + cell_val + "</th>\r\n";
                                 }
                             }
                         }
@@ -196,25 +218,20 @@ namespace ExcelHtmlAddin
                             if (border_top_none_flg) html += @"border-top: none;";
                             if (border_bottom_none_flg) html += @"border-bottom: none;";
                             if (align_flg == true || border_top_none_flg == true || border_bottom_none_flg == true) html += @"""";
-                            html += ">" + cell_val + "</th>\n";
+                            html += ">" + cell_val + "</th>\r\n";
                         }
 
                     }
                 }
 
-                html += "</tr>\n";
+                html += "</tr>\r\n";
             }
 
             html += "</table>";
 
-            html = prefix + "\n" + html + "\n" + sufix + "\n";
+            html = prefix + "\r\n" + html + "\r\n" + sufix + "\r\n";
 
-            string save_path = get_txt_save_path();
-
-            System.Text.Encoding enc = new System.Text.UTF8Encoding(false);
-            StreamWriter sw = new StreamWriter(save_path, false, enc);
-            sw.Write(html);
-            sw.Close();
+            return html;
 
         }
 
@@ -288,7 +305,7 @@ namespace ExcelHtmlAddin
         private string br_encode(string str)
         {
             if (str == "" || str == null) return "";
-            Regex pat = new Regex(@"(\r\n|\r|\n)+", RegexOptions.Compiled | RegexOptions.Multiline);
+            Regex pat = new Regex(@"(\r\r\n|\r|\r\n)+", RegexOptions.Compiled | RegexOptions.Multiline);
             if (!pat.IsMatch(str)) return str;
             return pat.Replace(str, "<br>");
         }

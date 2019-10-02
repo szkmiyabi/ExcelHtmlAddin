@@ -37,6 +37,7 @@
             this.tab1 = this.Factory.CreateRibbonTab();
             this.group1 = this.Factory.CreateRibbonGroup();
             this.doCreateTableTagButton = this.Factory.CreateRibbonButton();
+            this.doSaveFileTableTagButton = this.Factory.CreateRibbonButton();
             this.tab1.SuspendLayout();
             this.group1.SuspendLayout();
             this.SuspendLayout();
@@ -50,6 +51,7 @@
             // group1
             // 
             this.group1.Items.Add(this.doCreateTableTagButton);
+            this.group1.Items.Add(this.doSaveFileTableTagButton);
             this.group1.Label = "表編集";
             this.group1.Name = "group1";
             // 
@@ -58,6 +60,12 @@
             this.doCreateTableTagButton.Label = "表コード出力";
             this.doCreateTableTagButton.Name = "doCreateTableTagButton";
             this.doCreateTableTagButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.doCreateTableTagButton_Click);
+            // 
+            // doSaveFileTableTagButton
+            // 
+            this.doSaveFileTableTagButton.Label = "ファイルに保存";
+            this.doSaveFileTableTagButton.Name = "doSaveFileTableTagButton";
+            this.doSaveFileTableTagButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.doSaveFileTableTagButton_Click);
             // 
             // Ribbon1
             // 
@@ -78,6 +86,7 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonTab tab1;
         internal Microsoft.Office.Tools.Ribbon.RibbonGroup group1;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton doCreateTableTagButton;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton doSaveFileTableTagButton;
     }
 
     partial class ThisRibbonCollection
