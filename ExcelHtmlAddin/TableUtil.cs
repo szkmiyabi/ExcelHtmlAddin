@@ -17,7 +17,25 @@ namespace ExcelHtmlAddin
     {
         private string prefix = "<!-- ExcelHtmlAddin code start -->";
         private string sufix = "<!-- ExcelHtmlAddin code end -->";
+        private double[] col_width_arr = { 9.13, 10.25, 10.25, 43.25, 30.75, 21.5 };
 
+        //列幅調整（6列決め打ち）
+        private void do_fit_col_width()
+        {
+            Excel.Range sa = Globals.ThisAddIn.Application.Selection;
+            Excel.Worksheet ash = Globals.ThisAddIn.Application.ActiveSheet;
+            int r, c1, c2 = 0;
+            r = sa.Row;
+            c1 = sa.Column;
+            c2 = sa.Columns[sa.Columns.Count].Column;
+            int cnt = 0;
+            for(int j=c1; j<=c2; j++)
+            {
+                ash.Cells[r, j].ColumnWidth = col_width_arr[cnt];
+                cnt++;
+            }
+            MessageBox.Show("列幅調整が完了しました。");
+        }
 
         //表コードを表示
         private void do_table_tag_create_view()

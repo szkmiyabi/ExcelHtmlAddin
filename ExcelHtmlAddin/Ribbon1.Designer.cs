@@ -38,6 +38,7 @@
             this.group1 = this.Factory.CreateRibbonGroup();
             this.doCreateTableTagButton = this.Factory.CreateRibbonButton();
             this.doSaveFileTableTagButton = this.Factory.CreateRibbonButton();
+            this.doFitColumnWidthButton = this.Factory.CreateRibbonButton();
             this.tab1.SuspendLayout();
             this.group1.SuspendLayout();
             this.SuspendLayout();
@@ -50,6 +51,7 @@
             // 
             // group1
             // 
+            this.group1.Items.Add(this.doFitColumnWidthButton);
             this.group1.Items.Add(this.doCreateTableTagButton);
             this.group1.Items.Add(this.doSaveFileTableTagButton);
             this.group1.Label = "表編集";
@@ -66,6 +68,12 @@
             this.doSaveFileTableTagButton.Label = "ファイルに保存";
             this.doSaveFileTableTagButton.Name = "doSaveFileTableTagButton";
             this.doSaveFileTableTagButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.doSaveFileTableTagButton_Click);
+            // 
+            // doFitColumnWidthButton
+            // 
+            this.doFitColumnWidthButton.Label = "列幅調整";
+            this.doFitColumnWidthButton.Name = "doFitColumnWidthButton";
+            this.doFitColumnWidthButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.doFitColumnWidthButton_Click);
             // 
             // Ribbon1
             // 
@@ -87,6 +95,7 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonGroup group1;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton doCreateTableTagButton;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton doSaveFileTableTagButton;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton doFitColumnWidthButton;
     }
 
     partial class ThisRibbonCollection

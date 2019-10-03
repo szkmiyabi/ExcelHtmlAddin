@@ -41,5 +41,11 @@ namespace ExcelHtmlAddin
         {
             do_table_tag_create_save();
         }
+
+        //列幅調整クリック
+        private void doFitColumnWidthButton_Click(object sender, RibbonControlEventArgs e)
+        {
+            do_fit_col_width();
+        }
     }
 }
